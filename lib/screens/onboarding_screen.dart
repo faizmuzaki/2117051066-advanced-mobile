@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/form_screen.dart';
 
 class Onboardingscreen extends StatelessWidget {
   const Onboardingscreen({Key? key}) : super(key: key);
@@ -33,16 +34,18 @@ class Onboardingscreen extends StatelessWidget {
                       "Let’s start the journey",
                       style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'Poppins',
                         color: Colors.black,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 20), // Jarak antara teks dan tombol
+                  SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      // Aksi yang ingin Anda lakukan saat tombol ditekan
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FormScreen()));
                     },
                     child: Text("Gabung Sekarang"),
                   ),
