@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/login_screen.dart';
+import 'package:justduit/screens/signup_screen.dart';
 
 class Onboardingscreen extends StatelessWidget {
   const Onboardingscreen({Key? key}) : super(key: key);
@@ -31,7 +33,6 @@ class Onboardingscreen extends StatelessWidget {
                       "Let’s start the journey",
                       style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'Poppins-Reguler',
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -44,7 +45,6 @@ class Onboardingscreen extends StatelessWidget {
                       "Experience seamless digital transactions with JustDuit",
                       style: TextStyle(
                         fontSize: 16,
-                        fontFamily: 'Poppins-Reguler',
                         color: Color(0XFFA4A8AE),
                       ),
                       textAlign: TextAlign.center,
@@ -62,26 +62,40 @@ class Onboardingscreen extends StatelessWidget {
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Signupscreen()));
+                      },
                       child: Text(
                         "Get Started",
                         style: TextStyle(
-                          fontFamily: 'Poppins-Reguler',
                           fontSize: 16,
                         ),
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 8, bottom: 15),
-                    child: Text(
-                      "I already have an account",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Poppins-Reguler',
-                        color: Color(0XFFA4A8AE),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Color(0XFFA4A8AE)),
                       ),
-                      textAlign: TextAlign.center,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Loginscreen()));
+                      },
+                      child: Text(
+                        "I already have an account",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ],
