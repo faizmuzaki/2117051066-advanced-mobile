@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:justduit/screens/home_screen.dart';
 import 'package:justduit/screens/onboarding_screen.dart';
 import 'package:justduit/screens/form_screen.dart';
+import 'package:justduit/screens/root_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const RootScreen(),
       //   home: Scaffold(a
       //     body: Center(
       //       child: Text("Test"),
