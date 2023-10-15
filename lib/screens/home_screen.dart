@@ -136,6 +136,9 @@ class _HomescreenState extends State<Homescreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
               GridView.builder(
                 itemCount: fitur.length,
                 physics: NeverScrollableScrollPhysics(),
@@ -182,6 +185,9 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   );
                 },
+              ),
+              SizedBox(
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 20),
