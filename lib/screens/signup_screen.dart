@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:justduit/screens/login_screen.dart';
+import 'package:justduit/screens/signin_screen.dart';
 
 class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
@@ -10,11 +10,11 @@ class Signupscreen extends StatefulWidget {
 
 class _SignupscreenState extends State<Signupscreen> {
   TextEditingController emailController = TextEditingController();
-  bool isEmailVaid = false;
+  bool isEmailVaid = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF6F8FB),
+      backgroundColor: const Color(0xFFF6F8FB),
       body: ListView(
         children: [
           Expanded(
@@ -47,7 +47,7 @@ class _SignupscreenState extends State<Signupscreen> {
               margin: const EdgeInsets.symmetric(
                 horizontal: 16,
               ),
-              padding: EdgeInsets.all(16.0), // Tambahkan padding di sini
+              padding: const EdgeInsets.all(16.0), // Tambahkan padding di sini
 
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -56,7 +56,7 @@ class _SignupscreenState extends State<Signupscreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Text('Full Name'),
                       Text(
@@ -65,21 +65,22 @@ class _SignupscreenState extends State<Signupscreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Text('Email Address'),
                       Text(
@@ -88,23 +89,24 @@ class _SignupscreenState extends State<Signupscreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   TextField(
                     controller: emailController,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       errorText: isEmailVaid ? null : "Email tidak valid",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Text('Password'),
                       Text(
@@ -113,21 +115,22 @@ class _SignupscreenState extends State<Signupscreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Text('Confirm Password'),
                       Text(
@@ -136,25 +139,26 @@ class _SignupscreenState extends State<Signupscreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF1E90FF)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF1E90FF)),
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                       ),
@@ -163,7 +167,7 @@ class _SignupscreenState extends State<Signupscreen> {
                           isEmailVaid = emailController.text.isNotEmpty;
                         });
                       },
-                      child: Text(
+                      child: const Text(
                         "Get Started",
                         style: TextStyle(
                           fontSize: 16,
@@ -173,19 +177,19 @@ class _SignupscreenState extends State<Signupscreen> {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextButton(
                       style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Color(0XFFA4A8AE)),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0XFFA4A8AE)),
                       ),
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Loginscreen()));
+                                builder: (context) => const Signinscreen()));
                       },
-                      child: Text(
+                      child: const Text(
                         "Sign In",
                         style: TextStyle(
                           fontSize: 16,

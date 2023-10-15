@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:justduit/screens/login_screen.dart';
+import 'package:justduit/screens/signin_screen.dart';
 import 'package:justduit/screens/signup_screen.dart';
 
 class Onboardingscreen extends StatelessWidget {
@@ -50,15 +50,15 @@ class Onboardingscreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
                     height: 52,
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF1E90FF)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF1E90FF)),
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                       ),
@@ -66,9 +66,9 @@ class Onboardingscreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Signupscreen()));
+                                builder: (context) => const Signupscreen()));
                       },
-                      child: Text(
+                      child: const Text(
                         "Get Started",
                         style: TextStyle(
                           fontSize: 16,
@@ -78,19 +78,19 @@ class Onboardingscreen extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextButton(
                       style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Color(0XFFA4A8AE)),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0XFFA4A8AE)),
                       ),
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Loginscreen()));
+                                builder: (context) => Signinscreen()));
                       },
-                      child: Text(
+                      child: const Text(
                         "I already have an account",
                         style: TextStyle(
                           fontSize: 16,

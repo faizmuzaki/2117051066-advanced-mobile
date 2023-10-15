@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/home_screen.dart';
 import 'package:justduit/screens/signup_screen.dart';
 
-class Loginscreen extends StatefulWidget {
-  const Loginscreen({super.key});
+class Signinscreen extends StatefulWidget {
+  const Signinscreen({super.key});
 
   @override
-  State<Loginscreen> createState() => _LoginscreenState();
+  State<Signinscreen> createState() => _SigninscreenState();
 }
 
-class _LoginscreenState extends State<Loginscreen> {
+class _SigninscreenState extends State<Signinscreen> {
   TextEditingController emailController = TextEditingController();
-  bool isEmailVaid = false;
+  bool isEmailVaid = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +49,7 @@ class _LoginscreenState extends State<Loginscreen> {
               margin: const EdgeInsets.symmetric(
                 horizontal: 16,
               ),
-              padding: EdgeInsets.all(16.0), // Tambahkan padding di sini
+              padding: const EdgeInsets.all(16.0), // Tambahkan padding di sini
 
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -57,7 +58,7 @@ class _LoginscreenState extends State<Loginscreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Text('Email Address'),
                       Text(
@@ -66,23 +67,24 @@ class _LoginscreenState extends State<Loginscreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   TextField(
                     controller: emailController,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       errorText: isEmailVaid ? null : "Email tidak valid",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Text('Password'),
                       Text(
@@ -91,28 +93,29 @@ class _LoginscreenState extends State<Loginscreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all<Color>(
-                              Color(0XFFA4A8AE)),
+                              const Color(0XFFA4A8AE)),
                         ),
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Forgot Password",
                           style: TextStyle(
                             fontSize: 14,
@@ -124,20 +127,26 @@ class _LoginscreenState extends State<Loginscreen> {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF1E90FF)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF1E90FF)),
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                       ),
                       onPressed: () {
                         setState(() {
                           isEmailVaid = emailController.text.isNotEmpty;
+                          if (isEmailVaid) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Homescreen()));
+                          }
                         });
                       },
-                      child: Text(
+                      child: const Text(
                         "Sign In Now",
                         style: TextStyle(
                           fontSize: 16,
@@ -147,19 +156,19 @@ class _LoginscreenState extends State<Loginscreen> {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextButton(
                       style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Color(0XFFA4A8AE)),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0XFFA4A8AE)),
                       ),
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Signupscreen()));
+                                builder: (context) => const Signupscreen()));
                       },
-                      child: Text(
+                      child: const Text(
                         "Create New Account",
                         style: TextStyle(
                           fontSize: 16,
