@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -40,237 +42,261 @@ class _HomescreenState extends State<Homescreen> {
     'assets/images/container.png',
     'assets/images/gaming.png',
   ];
+
+  var name = '';
+  void getName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      name = prefs.getString('name') ?? "User";
+      print(name);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF6F8FB),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/34159640',
+        child: RefreshIndicator(
+          onRefresh: () {
+            return Future.delayed(
+              Duration(seconds: 3),
+            );
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          'https://avatars.githubusercontent.com/u/34159640',
+                        ),
+                        radius: 20,
                       ),
-                      radius: 20,
-                    ),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Column(
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hai, ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xffA4A8AE),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            '$name',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  height: 166,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Hai, ',
+                          'Platinum Member',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Color(0xffA4A8AE),
-                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         Text(
-                          'Shanon',
+                          'Member Since 08/23',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          'Balance',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Text(
+                          'Rp.4.000.000',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                height: 166,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(16),
+                SizedBox(
+                  height: 15,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                GridView.builder(
+                  itemCount: fitur.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(top: 8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 65,
+                            height: 65,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Flexible(
+                              child: Icon(
+                                fiturIcons[index],
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Flexible(
+                            child: Text(
+                              fitur[index],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 20),
+                  child: Row(
                     children: [
                       Text(
-                        'Platinum Member',
+                        'Promo',
                         style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                      SizedBox(width: 245),
                       Text(
-                        'Member Since 08/23',
+                        'See all',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        'Balance',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Text(
-                        'Rp.4.000.000',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
                           fontWeight: FontWeight.w600,
+                          color: Colors.blue,
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              GridView.builder(
-                itemCount: fitur.length,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 16,
-                ),
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(top: 8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Flexible(
-                            child: Icon(
-                              fiturIcons[index],
-                              color: Colors.black,
-                              size: 32,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Flexible(
-                          child: Text(
-                            fitur[index],
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, left: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      'Promo',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 245),
-                    Text(
-                      'See all',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                ListView.builder(
+                  itemCount: news.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.all(8),
+                      width: double.infinity,
+                      height: 200,
+                      decoration: BoxDecoration(
                         color: Colors.blue,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListView.builder(
-                itemCount: news.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.all(16),
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(16.0),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(imagesNews[index]),
-                      ),
-                    ),
-                    child: Stack(
-                      alignment: AlignmentDirectional.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                        borderRadius: BorderRadius.circular(16.0),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(imagesNews[index]),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  news[index],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  descriptionNews[index],
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
+                      ),
+                      child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    news[index],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    descriptionNews[index],
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

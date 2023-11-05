@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:justduit/screens/home_screen.dart';
+import 'package:justduit/screens/root_screen.dart';
 import 'package:justduit/screens/signup_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signinscreen extends StatefulWidget {
   const Signinscreen({super.key});
@@ -10,8 +12,32 @@ class Signinscreen extends StatefulWidget {
 }
 
 class _SigninscreenState extends State<Signinscreen> {
-  TextEditingController emailController = TextEditingController();
-  bool isEmailVaid = true;
+  TextEditingController usernameController = TextEditingController();
+  bool isUsernameValid = true;
+
+  void setName(String name) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('name', name);
+  }
+
+  void redirect() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('name')) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const RootScreen(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    redirect();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +86,7 @@ class _SigninscreenState extends State<Signinscreen> {
                 children: [
                   const Row(
                     children: [
-                      Text('Email Address'),
+                      Text('Username'),
                       Text(
                         "*",
                         style: TextStyle(color: Colors.red),
@@ -71,14 +97,15 @@ class _SigninscreenState extends State<Signinscreen> {
                     height: 4,
                   ),
                   TextField(
-                    controller: emailController,
+                    controller: usernameController,
                     decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      errorText: isEmailVaid ? null : "Email tidak valid",
+                      errorText:
+                          isUsernameValid ? null : "Username tidak valid",
                     ),
                   ),
                   const SizedBox(
@@ -137,14 +164,17 @@ class _SigninscreenState extends State<Signinscreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isEmailVaid = emailController.text.isNotEmpty;
-                          if (isEmailVaid) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Homescreen()));
-                          }
+                          isUsernameValid = usernameController.text.isNotEmpty;
                         });
+                        if (isUsernameValid) {
+                          setName(usernameController.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RootScreen(),
+                            ),
+                          );
+                        }
                       },
                       child: const Text(
                         "Sign In Now",

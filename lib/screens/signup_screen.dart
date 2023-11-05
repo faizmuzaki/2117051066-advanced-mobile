@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/root_screen.dart';
 import 'package:justduit/screens/signin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
@@ -9,8 +11,32 @@ class Signupscreen extends StatefulWidget {
 }
 
 class _SignupscreenState extends State<Signupscreen> {
-  TextEditingController emailController = TextEditingController();
-  bool isEmailVaid = true;
+  TextEditingController usernameController = TextEditingController();
+  bool isUsernameValid = true;
+
+  void setName(String name) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('name', name);
+  }
+
+  void redirect() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('name')) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const RootScreen(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    redirect();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,12 +95,15 @@ class _SignupscreenState extends State<Signupscreen> {
                     height: 4,
                   ),
                   TextField(
+                    controller: usernameController,
                     decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
+                      errorText:
+                          isUsernameValid ? null : "Username tidak valid",
                     ),
                   ),
                   const SizedBox(
@@ -93,14 +122,12 @@ class _SignupscreenState extends State<Signupscreen> {
                     height: 4,
                   ),
                   TextField(
-                    controller: emailController,
                     decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 16),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      errorText: isEmailVaid ? null : "Email tidak valid",
                     ),
                   ),
                   const SizedBox(
@@ -164,8 +191,17 @@ class _SignupscreenState extends State<Signupscreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isEmailVaid = emailController.text.isNotEmpty;
+                          isUsernameValid = usernameController.text.isNotEmpty;
                         });
+                        if (isUsernameValid) {
+                          setName(usernameController.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RootScreen(),
+                            ),
+                          );
+                        }
                       },
                       child: const Text(
                         "Get Started",
