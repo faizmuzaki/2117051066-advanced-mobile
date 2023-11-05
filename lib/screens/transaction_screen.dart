@@ -13,16 +13,22 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-          future: Future.delayed(Duration(seconds: 3)), 
-          builder: (context, snapshot){
-          if(snapshot.connectionState == ConnectionState.done){
-            return Center(child: Text('test'),
-        );
-          } else {
-            return Center(child: CircularProgressIndicator(),);
-          }
-        }),
+          future: Future.delayed(Duration(seconds: 3)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Center(
+                child: Text(
+                  'test',
+                ),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
-    )
+    );
   }
 }
